@@ -1,0 +1,2 @@
+lua model.lua
+pause
