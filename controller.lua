@@ -14,7 +14,7 @@ local function splitString(inputString, separator)
         return tab
 end
 
-local function parseCommand(command)
+local function ParseCommand(command)
 	--[[print("OK. You printed " .. command)
 	
 	for i=0, #stringTab do
@@ -25,27 +25,34 @@ local function parseCommand(command)
 		print("Your commant is too short. Please use one of this: (i)nit, (t)ick, (m)ove x y direction(l/r/u/d), (s)huffle/mix")
 	end
 	
+	if isMoved then
+		if stringTab[0] ~= "t" then
+			print("Two chips in the middle of it move! You can use only (t)ick command now")
+			return
+		end
+	end
+	
 	--re-initialization
-	if(stringTab[0] == "i" or stringTab[0]=="I") then
+	if(stringTab[0] == "i") then
 		GenerateField()
-		dofile("view.lua")
+		Dump()
 		return
 	end
 	
-	if(stringTab[0] == "t" or stringTab[0]=="T") then
+	if(stringTab[0] == "t") then
 		Tick()
 		return
 	end
 	
-	if(stringTab[0] == "m" or stringTab[0]=="M") then
-		TryMove(stringTab[1],stringTab[2],stringTab[3])
-		dofile("view.lua")
+	if(stringTab[0] == "m") then
+		TryMove(tonumber(stringTab[1]),tonumber(stringTab[2]),stringTab[3])
+		Dump()
 		return
 	end
 	
-	if(stringTab[0] == "s" or stringTab[0]=="S" or stringTab[0]=="mix") then
+	if(stringTab[0] == "s" or stringTab[0]=="mix") then
 		Mix()
-		dofile("view.lua")
+		Dump()
 		return
 	end
 end
@@ -53,5 +60,5 @@ end
 repeat
 	print("Enter your command please")
 	command = io.read()
-	parseCommand(command)
+	ParseCommand(command)
 until false

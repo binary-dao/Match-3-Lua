@@ -3,6 +3,14 @@
 local ASCII_SHIFT = 65
 
 local function numberToLetter(number)
+	--some error happened
+	if(not number) then
+		return "@"
+	end
+	--empty yet
+	if number==-1 then
+		return " "
+	end
 	return string.char(number + ASCII_SHIFT)
 end
 
